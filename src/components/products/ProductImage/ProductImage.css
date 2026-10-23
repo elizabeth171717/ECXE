@@ -1,0 +1,11 @@
+.product-image {
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-image__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

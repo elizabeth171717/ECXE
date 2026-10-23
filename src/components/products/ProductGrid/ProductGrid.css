@@ -1,0 +1,13 @@
+.product-grid {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+
+.product-grid > * {
+  flex: 0 0 280px;
+}

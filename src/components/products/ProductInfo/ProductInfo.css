@@ -1,0 +1,15 @@
+.product-info {
+  width: 100%;
+}
+
+.product-info__name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.product-info__description {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

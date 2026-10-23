@@ -1,0 +1,16 @@
+
+.thank-you-page {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 24px;
+  text-align: center;
+}
+
+.thank-you-page h1 {
+  margin-bottom: 16px;
+}
+
+.thank-you-page p {
+  font-size: 18px;
+  line-height: 1.6;
+}

@@ -1,0 +1,11 @@
+.collection {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 1rem 0;
+}
+
+.collection-name {
+  text-align: center;
+}

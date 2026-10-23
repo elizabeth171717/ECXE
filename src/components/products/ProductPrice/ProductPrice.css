@@ -1,0 +1,17 @@
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-price__current,
+.product-price__sale {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.product-price__original {
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
