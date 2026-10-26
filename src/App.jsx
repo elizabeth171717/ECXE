@@ -11,7 +11,7 @@ import PaymentPage from './pages/Payment/PaymentPage';
 import CesiaStore from './themes/CesiaStore/Cesia';
 import EfrainStore from './themes/EfrainStore/Efrain';
 import ElizabethStore from './themes/ElizabethStore.jsx/Elizabeth';
-import ThankYou from './pages/thankyouPage/ThankYou';
+import ThankYou from './pages/ThankYouPage//ThankYou';
 import './App.css'
 
 function App() {
