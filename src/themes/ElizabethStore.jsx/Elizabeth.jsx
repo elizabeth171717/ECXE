@@ -89,7 +89,7 @@ function ElizabethStore() {
 
   return (
     <div className="Store-container">
-      <h2 className="Store-title">Elizabeth's World</h2>
+      <h2 className="Store-title">My World</h2>
 
       <div className="collections-container">
         {visibleCollections.map((collection) => (
