@@ -3,7 +3,7 @@ import Collection from "../../components/products/Collection/Collection";
 import { BACKEND_URL } from "../../constants/constants";
 
 const CLIENT_ID = "anahuac";
-const STORE_SLUG = "exce-store";
+const STORE_SLUG = "rricura-tamales";
 
 function ElizabethStore() {
   const [collections, setCollections] = useState([]);

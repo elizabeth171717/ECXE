@@ -3,7 +3,7 @@ import "./ProductOptions.css";
 
 const productOptions = {
   colors: ["Black", "White"],
-  sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+  sizes: ["1 y/o", "2 y/o", "3 y/o", "4 y/o", "5 y/o", "6 y/o", "7 y/o", "8 y/o", "9 y/o", "10 y/o", "XS", "S", "M", "L", "XL", "XXL"],
 };
 
 function ProductOptions({
