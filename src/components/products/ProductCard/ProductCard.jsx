@@ -7,8 +7,10 @@ import ProductInfo from "../ProductInfo/ProductInfo"
 import ProductPrice from "../ProductPrice/ProductPrice";
 import ProductQuantity from "../ProductQuantity/ProductQuantity";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import Modal from "../../common/Modal/Modal";
 
 function ProductCard({ product }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
 const [selectedColor, setSelectedColor] = useState("");
@@ -33,6 +35,7 @@ const [selectedSize, setSelectedSize] = useState("");
 
   addToCart(cartItem);
   console.log("Adding to cart:", cartItem);
+  setIsModalOpen(true);
 };
 
   return (
@@ -90,6 +93,9 @@ const [selectedSize, setSelectedSize] = useState("");
         />
 
         <AddToCartButton onAddToCart={handleAddToCart} />
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <p>Item added to cart!</p>
+        </Modal>
       </div>
     </article>
   );

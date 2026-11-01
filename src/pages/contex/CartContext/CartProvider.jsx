@@ -9,7 +9,6 @@ function CartProvider({ children }) {
 
     return savedCart ? JSON.parse(savedCart) : [];
   });
-
   useEffect(() => {
     localStorage.setItem("elizabethStoreCart", JSON.stringify(cart));
   }, [cart]);
