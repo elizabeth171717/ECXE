@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import CartContext from "../../pages/contex/CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./CheckoutPage.css";
+import ShippingAddress from "../../components/checkout/ShippingAddress/ShippingAdress";
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function CheckoutPage() {
     phone: "",
   });
 
-  const [deliveryAddress, setDeliveryAddress] = useState({
+  const [shippingAddress, setShippingAddress] = useState({
     address: "",
     city: "",
     state: "",
@@ -52,7 +53,7 @@ function CheckoutPage() {
   const handleAddressChange = (event) => {
     const { name, value } = event.target;
 
-    setDeliveryAddress((previous) => ({
+    setShippingAddress((previous) => ({
       ...previous,
       [name]: value,
     }));
@@ -68,7 +69,7 @@ function CheckoutPage() {
 
       deliveryAddress:
         fulfillment === "delivery"
-          ? deliveryAddress
+          ? shippingAddress
           : null,
 
       customerInfo: {
@@ -224,88 +225,12 @@ function CheckoutPage() {
             </div>
 
             {/* DELIVERY ADDRESS */}
-            {fulfillment === "delivery" && (
-              <div className="delivery-address">
-
-                <h3>
-                  Delivery Address
-                </h3>
-
-                <div className="form-group">
-
-                  <label htmlFor="address">
-                    Street Address
-                  </label>
-
-                  <input
-                    id="address"
-                    name="address"
-                    type="text"
-                    value={deliveryAddress.address}
-                    onChange={handleAddressChange}
-                    required
-                  />
-
-                </div>
-
-                <div className="form-row">
-
-                  <div className="form-group">
-
-                    <label htmlFor="city">
-                      City
-                    </label>
-
-                    <input
-                      id="city"
-                      name="city"
-                      type="text"
-                      value={deliveryAddress.city}
-                      onChange={handleAddressChange}
-                      required
-                    />
-
-                  </div>
-
-                  <div className="form-group">
-
-                    <label htmlFor="state">
-                      State
-                    </label>
-
-                    <input
-                      id="state"
-                      name="state"
-                      type="text"
-                      value={deliveryAddress.state}
-                      onChange={handleAddressChange}
-                      required
-                    />
-
-                  </div>
-
-                  <div className="form-group">
-
-                    <label htmlFor="zip">
-                      ZIP Code
-                    </label>
-
-                    <input
-                      id="zip"
-                      name="zip"
-                      type="text"
-                      value={deliveryAddress.zip}
-                      onChange={handleAddressChange}
-                      required
-                    />
-
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
+           {fulfillment === "delivery" && (
+  <ShippingAddress
+    shippingAddress={shippingAddress}
+    setShippingAddress={setShippingAddress}
+  />
+)}
           </section>
 
           {/* CUSTOMER INFORMATION */}

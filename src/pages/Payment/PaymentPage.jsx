@@ -12,7 +12,7 @@ import "./PaymentPage.css";
 
 console.log("📦 Backend URL:", BACKEND_URL);
 const client = import.meta.env.VITE_CLIENT;
-console.log("🏷️ Client tenant:", client); // should say "rricura"
+console.log("🏷️ Client tenant:", client); 
 console.log(
   "📬 Final POST URL:",
   `${BACKEND_URL}/api/exce/${client}/create-payment-intent`

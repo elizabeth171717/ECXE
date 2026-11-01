@@ -6,6 +6,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   box-sizing: border-box;
+  padding: 0 10px;
 }
 
 .product-grid > * {
