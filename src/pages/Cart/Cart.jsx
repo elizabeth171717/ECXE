@@ -57,10 +57,25 @@ const {
 />
                 <h2>{item.name}</h2>
 
-                <p>Price: ${item.price}</p>
-                <p>Color: {item.color}</p>
-                <p>Size: {item.size}</p>
-                <p>Quantity: {item.quantity}</p>
+                
+               {item.color && (
+  <p>Color: {item.color}</p>
+)}
+
+{item.size && (
+  <p>Size: {item.size}</p>
+)}
+
+<p>Price per item: ${Number(item.price).toFixed(2)}</p>
+
+<p>Quantity: {item.quantity}</p>
+
+<p>
+  <strong>
+    Item total: ${(Number(item.price) * item.quantity).toFixed(2)}
+  </strong>
+</p>
+
                   <button
     type="button"
     className="cart-drawer__remove"

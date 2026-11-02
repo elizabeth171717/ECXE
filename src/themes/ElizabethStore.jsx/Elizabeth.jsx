@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Collection from "../../components/products/Collection/Collection";
 import { BACKEND_URL } from "../../constants/constants";
+import CustomDesignUpload from "../../components/products/CustomDesignUpload/CustomDesignUpload";
 import "./Elizabeth.css";
 const CLIENT_ID = "anahuac";
 const STORE_SLUG = "exce-store";
@@ -89,18 +90,23 @@ function ElizabethStore() {
 
   return (
     <div className="Store-container">
-      <div className="page-title"> <h2 className="Store-title">Elizabeth's World</h2>
+      <div className="page-title"> 
+        <h2 className="Store-title">Elizabeth's T-shirts collection</h2>
 <p>We highly recommend ordering your t-shirts at least 2 weeks before your event to ensure availability and timely delivery.</p>
 </div>
+
+
            <div className="collections-container">
         {visibleCollections.map((collection) => (
           <Collection
             key={collection.id}
             name={collection.name}
             products={collection.products}
+            storeType="elizabeth"
           />
         ))}
       </div>
+     
     </div>
   );
 }

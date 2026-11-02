@@ -9,27 +9,35 @@ import ProductQuantity from "../ProductQuantity/ProductQuantity";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
 import Modal from "../../common/Modal/Modal";
 
-function ProductCard({ product }) {
+
+function ProductCard({ product, storeType }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
 const [selectedColor, setSelectedColor] = useState("");
 const [selectedSize, setSelectedSize] = useState("");
   const { addToCart } = useContext(CartContext);
+const requiresOptions = storeType === "elizabeth";
+ 
 
- const handleAddToCart = () => {
-  if (!selectedColor || !selectedSize) {
-    alert("Please select a color and size.");
-    return;
-  }
+  const handleAddToCart = () => {
+    if (
+      requiresOptions &&
+      (!selectedColor || !selectedSize)
+    ) {
+      alert("Please select a color and size.");
+      return;
+    }
 
   const cartItem = {
     id: product.id || product._id,
     name: product.name,
     price: product.prices?.website ?? product.basePrice,
     image: product.image || "",
-    color: selectedColor,
-    size: selectedSize,
+    ...(requiresOptions && {
+        color: selectedColor,
+        size: selectedSize,
+      }),
     quantity,
   };
 
@@ -76,12 +84,17 @@ const [selectedSize, setSelectedSize] = useState("");
 
           <ProductInfo name={product.name} />
         </div>
-<ProductOptions
-  selectedColor={selectedColor}
-  onColorChange={setSelectedColor}
-  selectedSize={selectedSize}
-  onSizeChange={setSelectedSize}
-/>
+
+  {requiresOptions && (
+          <ProductOptions
+            selectedColor={selectedColor}
+            onColorChange={setSelectedColor}
+            selectedSize={selectedSize}
+            onSizeChange={setSelectedSize}
+          />
+        )}
+
+
         <ProductQuantity
           quantity={quantity}
           onIncrease={() =>
@@ -91,6 +104,8 @@ const [selectedSize, setSelectedSize] = useState("");
             setQuantity((current) => Math.max(1, current - 1))
           }
         />
+
+       
 
         <AddToCartButton onAddToCart={handleAddToCart} />
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

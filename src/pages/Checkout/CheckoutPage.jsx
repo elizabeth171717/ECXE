@@ -146,7 +146,7 @@ function CheckoutPage() {
                           Color: {item.color}
                         </p>
                       )}
-
+<p>Price: ${Number(item.price).toFixed(2)}</p>
                       {item.size && (
                         <p>
                           Size: {item.size}
