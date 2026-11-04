@@ -114,3 +114,9 @@
   font-size: 12px;
   line-height: 1.5;
 }
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

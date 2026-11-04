@@ -95,7 +95,7 @@ function ElizabethStore() {
 <p>We highly recommend ordering your t-shirts at least 2 weeks before your event to ensure availability and timely delivery.</p>
 </div>
 
-
+ <CustomDesignUpload />
            <div className="collections-container">
         {visibleCollections.map((collection) => (
           <Collection

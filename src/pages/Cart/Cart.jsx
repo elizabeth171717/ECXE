@@ -50,11 +50,20 @@ const {
               <div
                 className="cart-drawer__item"
                 key={`${item.id}-${index}`}
-              ><img
-  src={item.image}
-  alt={item.name}
-  className="cart-drawer__item-image"
-/>
+              >
+               {item.designType === "customer-upload" ? (
+  <img
+    src={item.designUrl}
+    alt="Customer's uploaded design"
+    className="cart-drawer__item-image"
+  />
+) : (
+  <img
+    src={item.image}
+    alt={item.name}
+    className="cart-drawer__item-image"
+  />
+)}
                 <h2>{item.name}</h2>
 
                 

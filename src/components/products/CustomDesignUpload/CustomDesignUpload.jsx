@@ -4,7 +4,11 @@ import CartContext from "../../../pages/contex/CartContext/CartContext";
 import ProductOptions from "../ProductOptions/ProductOptions";
 import ProductQuantity from "../ProductQuantity/ProductQuantity";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import { BACKEND_URL } from "../../../constants/constants";
+import Modal from "../../../components/common/Modal/Modal";
 import "./CustomDesignUpload.css";
+
+const CLIENT_ID = "exceStore";
 
 function CustomDesignUpload() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +17,8 @@ function CustomDesignUpload() {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
-
+  const [uploading, setUploading] = useState(false);
+const [modalOpen, setModalOpen] = useState(false);
   const { addToCart } = useContext(CartContext);
 
   const handleFileChange = (event) => {
@@ -39,11 +44,11 @@ function CustomDesignUpload() {
       return;
     }
 
-    setDesignFile(file);
-
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
+
+    setDesignFile(file);
 
     if (file.type.startsWith("image/")) {
       setPreviewUrl(URL.createObjectURL(file));
@@ -52,7 +57,7 @@ function CustomDesignUpload() {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!designFile) {
       alert("Please upload your design.");
       return;
@@ -63,42 +68,69 @@ function CustomDesignUpload() {
       return;
     }
 
-    const cartItem = {
-      id: `custom-design-${Date.now()}`,
-      name: "Custom Design T-Shirt",
-      price: 0,
-      image: "",
-      color: selectedColor,
-      size: selectedSize,
-      quantity,
-      designType: "customer-upload",
-      designFileName: designFile.name,
-      designFile: designFile,
-      designUrl: null,
-    };
+    try {
+      setUploading(true);
 
-    addToCart(cartItem);
+      const formData = new FormData();
+      formData.append("design", designFile);
 
-    alert("Your custom shirt has been added to your cart!");
+      const response = await fetch(
+        `${BACKEND_URL}/api/exce/${CLIENT_ID}/upload-design`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    setDesignFile(null);
-    setPreviewUrl("");
-    setSelectedColor("");
-    setSelectedSize("");
-    setQuantity(1);
-    setIsOpen(false);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to upload your design.");
+      }
+
+      const cartItem = {
+        id: `custom-design-${Date.now()}`,
+        name: "Custom Design T-Shirt",
+        price: 16,
+        image: "",
+        color: selectedColor,
+        size: selectedSize,
+        quantity,
+        designType: "customer-upload",
+        designFileName: designFile.name,
+        designUrl: result.url,
+      };
+
+      addToCart(cartItem);
+
+      setModalOpen(true);
+
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+
+      setDesignFile(null);
+      setPreviewUrl("");
+      setSelectedColor("");
+      setSelectedSize("");
+      setQuantity(1);
+      setIsOpen(false);
+
+    } catch (error) {
+      console.error("Custom design upload error:", error);
+      alert(error.message || "Something went wrong uploading your design.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
     <section className="custom-design">
-
       {!isOpen ? (
         <div className="custom-design__intro">
           <h3>Have Your Own Design?</h3>
-
           <p>
-            Upload your artwork and let us print it on
-            your favorite T-shirt!
+            Upload your artwork and let us print it on your favorite T-shirt!
           </p>
 
           <button
@@ -111,7 +143,6 @@ function CustomDesignUpload() {
         </div>
       ) : (
         <div className="custom-design__form">
-
           <div className="custom-design__header">
             <h3>Customize Your T-Shirt</h3>
 
@@ -119,6 +150,7 @@ function CustomDesignUpload() {
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close customization"
+              disabled={uploading}
             >
               ✕
             </button>
@@ -134,6 +166,7 @@ function CustomDesignUpload() {
               type="file"
               accept=".png,.jpg,.jpeg,.pdf"
               onChange={handleFileChange}
+              disabled={uploading}
             />
 
             {designFile && (
@@ -157,6 +190,8 @@ function CustomDesignUpload() {
             </p>
           </div>
 
+          <div className="steps-container">
+
           <ProductOptions
             selectedColor={selectedColor}
             onColorChange={setSelectedColor}
@@ -166,19 +201,32 @@ function CustomDesignUpload() {
 
           <ProductQuantity
             quantity={quantity}
-            onIncrease={() =>
-              setQuantity((current) => current + 1)
-            }
-            onDecrease={() =>
-              setQuantity((current) => Math.max(1, current - 1))
-            }
+            onIncrease={() => setQuantity(current => current + 1)}
+            onDecrease={() => setQuantity(current => Math.max(1, current - 1))}
           />
 
-          <AddToCartButton onAddToCart={handleAddToCart} />
+          {uploading && (
+            <p className="custom-design__uploading">
+              Uploading your design... Please wait.
+            </p>
+          )}
 
+          <AddToCartButton
+            onAddToCart={handleAddToCart}
+            disabled={uploading}
+          />
         </div>
+        
+        </div>
+        
       )}
-
+      <Modal
+  isOpen={modalOpen}
+  onClose={() => setModalOpen(false)}
+>
+  <h2>ADDED TO CART!</h2>
+  <p>Your custom shirt has been added to your cart.</p>
+</Modal>
     </section>
   );
 }
