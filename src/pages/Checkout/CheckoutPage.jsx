@@ -6,7 +6,7 @@ import ShippingAddress from "../../components/checkout/ShippingAddress/ShippingA
 
 function CheckoutPage() {
   const navigate = useNavigate();
-  const { cart } = useContext(CartContext);
+  const { cart, shirtDiscount } = useContext(CartContext);
 
   const [fulfillment, setFulfillment] = useState("pickup");
 
@@ -24,22 +24,28 @@ function CheckoutPage() {
     zip: "",
   });
 
-  // Calculate items total
-  const itemsTotal = cart.reduce((total, item) => {
-    const price = item.salePrice ?? item.price;
+  // Calculate original items total
+const itemsTotal = cart.reduce((total, item) => {
+  const price = item.salePrice ?? item.price;
+  return total + price * item.quantity;
+}, 0);
 
-    return total + price * item.quantity;
-  }, 0);
+// Apply automatic shirt discount
+const discountedItemsTotal = Math.max(
+  0,
+  itemsTotal - shirtDiscount
+);
 
-  // Tax
-  const taxRate = 0.07;
-  const tax = itemsTotal * taxRate;
+// Tax calculated after discount
+const taxRate = 0.07;
+const tax = discountedItemsTotal * taxRate;
 
-  // Delivery
-  const deliveryFee = fulfillment === "delivery" ? 6 : 0;
+// Delivery
+const deliveryFee = fulfillment === "delivery" ? 7 : 0;
 
-  // Final total
-  const orderTotal = itemsTotal + tax + deliveryFee;
+// Final total
+const orderTotal = discountedItemsTotal + tax + deliveryFee;
+
 
   const handleCustomerChange = (event) => {
     const { name, value } = event.target;
@@ -79,6 +85,8 @@ function CheckoutPage() {
       },
 
       itemsTotal,
+      shirtDiscount,
+discountedItemsTotal,
       tax,
       deliveryFee,
       orderTotal,
@@ -146,7 +154,8 @@ function CheckoutPage() {
                           Color: {item.color}
                         </p>
                       )}
-<p>Price: ${Number(item.price).toFixed(2)}</p>
+
+<p>Price: ${Number(price).toFixed(2)}</p>
                       {item.size && (
                         <p>
                           Size: {item.size}
@@ -216,7 +225,7 @@ function CheckoutPage() {
                   <strong>Delivery</strong>
 
                   <small>
-                    Delivery fee: $6.00
+                    Delivery fee: $7.00
                   </small>
                 </span>
 
@@ -323,10 +332,30 @@ function CheckoutPage() {
 
             <div className="summary-row">
               <span>Items</span>
+              
               <span>
                 ${itemsTotal.toFixed(2)}
               </span>
             </div>
+
+
+{shirtDiscount > 0 && (
+  <>
+  <div className="summary-row">
+    <span>Automatic Shirt Discount</span>
+    <span>
+      -${shirtDiscount.toFixed(2)}
+    </span>
+  </div>
+
+<div className="summary-row">
+      <span>Discounted Subtotal</span>
+      <span>
+        ${(itemsTotal - shirtDiscount).toFixed(2)}
+      </span>
+    </div>
+  </>
+)}
 
             <div className="summary-row">
               <span>Tax</span>

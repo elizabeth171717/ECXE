@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../contex/CartContext/CartContext";
@@ -5,11 +6,28 @@ import "./Cart.css";
 
 function Cart({ isOpen, onClose }) {
   const navigate = useNavigate();
-const {
-  cart,
-  removeFromCart,
-  clearCart
-} = useContext(CartContext);
+
+  const {
+    cart,
+    removeFromCart,
+    clearCart,
+    shirtQuantity,
+    shirtDiscount
+  } = useContext(CartContext);
+
+  // Original cart subtotal
+  const itemsTotal = cart.reduce((total, item) => {
+    const price = Number(item.salePrice ?? item.price ?? 0);
+    return total + price * Number(item.quantity || 1);
+  }, 0);
+
+  // Subtotal after automatic discount
+  const discountedItemsTotal = Math.max(
+    0,
+    itemsTotal - shirtDiscount
+  );
+
+  const shirtsNeeded = Math.max(0, 4 - shirtQuantity);
 
   return (
     <div>
@@ -51,50 +69,105 @@ const {
                 className="cart-drawer__item"
                 key={`${item.id}-${index}`}
               >
-               {item.designType === "customer-upload" ? (
-  <img
-    src={item.designUrl}
-    alt="Customer's uploaded design"
-    className="cart-drawer__item-image"
-  />
-) : (
-  <img
-    src={item.image}
-    alt={item.name}
-    className="cart-drawer__item-image"
-  />
-)}
+                {item.designType === "customer-upload" ? (
+                  <img
+                    src={item.designUrl}
+                    alt="Customer's uploaded design"
+                    className="cart-drawer__item-image"
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="cart-drawer__item-image"
+                  />
+                )}
+
                 <h2>{item.name}</h2>
 
-                
-               {item.color && (
-  <p>Color: {item.color}</p>
-)}
+                {item.color && (
+                  <p>Color: {item.color}</p>
+                )}
 
-{item.size && (
-  <p>Size: {item.size}</p>
-)}
+                {item.size && (
+                  <p>Size: {item.size}</p>
+                )}
 
-<p>Price per item: ${Number(item.price).toFixed(2)}</p>
+                <p>
+                  Price per item: ${Number(item.price).toFixed(2)}
+                </p>
 
-<p>Quantity: {item.quantity}</p>
+                <p>Quantity: {item.quantity}</p>
 
-<p>
-  <strong>
-    Item total: ${(Number(item.price) * item.quantity).toFixed(2)}
-  </strong>
-</p>
+                <p>
+                  <strong>
+                    Item total: ${
+                      (Number(item.price) * item.quantity).toFixed(2)
+                    }
+                  </strong>
+                </p>
 
-                  <button
-    type="button"
-    className="cart-drawer__remove"
-    onClick={() => removeFromCart(index)}
-  >
-    Remove
-  </button>
-
+                <button
+                  type="button"
+                  className="cart-drawer__remove"
+                  onClick={() => removeFromCart(index)}
+                >
+                  Remove
+                </button>
               </div>
             ))
+          )}
+
+          {/* Discount Section - ONLY for eligible shirts */}
+          {cart.length > 0 && shirtQuantity > 0 && (
+            <div className="cart-drawer__summary">
+
+              {shirtDiscount > 0 ? (
+                <>
+                 <div className="cart-savings-banner">
+  <span className="cart-savings-banner__icon">🎉</span>
+  <div>
+    <strong>YOU SAVED ${shirtDiscount.toFixed(2)}!</strong>
+    <p>Your 4+ shirt discount has been applied!</p>
+  </div>
+</div>
+
+                  <div className="cart-final-subtotal">
+                    <p>
+                      Original Subtotal: ${itemsTotal.toFixed(2)}
+                    </p>
+
+                    <p>
+                      Discount: -${shirtDiscount.toFixed(2)}
+                    </p>
+
+                    <strong>
+                      Discounted Subtotal: ${
+                        discountedItemsTotal.toFixed(2)
+                      }
+                    </strong>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="cart-discount-prompt">
+                    <strong>Buy 4 shirts and save $10!</strong>
+                    <p>
+                      Add {shirtsNeeded} more {
+                        shirtsNeeded === 1 ? "shirt" : "shirts"
+                      } to unlock your discount.
+                    </p>
+                  </div>
+
+                  <div className="cart-final-subtotal">
+                    <strong>
+                      Subtotal: ${itemsTotal.toFixed(2)}
+                    </strong>
+                  </div>
+                </>
+              )}
+
+            </div>
           )}
 
         </div>
@@ -121,13 +194,15 @@ const {
             >
               Continue Shopping
             </button>
- <button
-      type="button"
-      className="cart-drawer__clear"
-      onClick={clearCart}
-    >
-      Clear Cart
-    </button>
+
+            <button
+              type="button"
+              className="cart-drawer__clear"
+              onClick={clearCart}
+            >
+              Clear Cart
+            </button>
+
           </div>
         )}
 

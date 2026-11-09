@@ -113,3 +113,115 @@
   background-color: #eee;
   color: #111;
 }
+
+
+
+/* CART SUMMARY */
+
+
+/* CART SUMMARY */
+.cart-drawer__summary {
+  width: 100%;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 16px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* EYE-CATCHING SAVINGS BANNER */
+.cart-savings-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  margin: 0 auto 18px;
+  border-radius: 12px;
+  background: #e7f9ed;
+  border: 2px solid #21a453;
+  color: #126b35;
+  text-align: center;
+}
+
+.cart-savings-banner__icon {
+  font-size: 32px;
+}
+
+.cart-savings-banner strong {
+  display: block;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.cart-savings-banner p {
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+
+/* DISCOUNT PROMPT */
+.cart-discount-prompt {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+  background: #fff4d9;
+  border: 1px solid #f0bd45;
+  color: #805400;
+  text-align: center;
+}
+
+.cart-discount-prompt strong {
+  font-size: 16px;
+}
+
+.cart-discount-prompt p {
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+
+/* ORIGINAL SUBTOTAL AND DISCOUNT ROWS */
+.cart-final-subtotal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 13px;
+  margin: 12px auto 0;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 15px;
+}
+
+.cart-final-subtotal p {
+  margin: 0;
+}
+
+.cart-final-subtotal strong {
+  font-size: 25px;
+  font-weight: 900;
+  color: #16833e;
+}
+
+/* LARGER SCREENS */
+@media (min-width: 600px) {
+  .cart-drawer__summary {
+    max-width: 420px;
+  }
+
+  .cart-savings-banner {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .cart-final-subtotal {
+    align-items: stretch;
+  }
+}

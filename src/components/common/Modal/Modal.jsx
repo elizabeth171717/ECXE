@@ -8,7 +8,7 @@ function Modal({ isOpen, onClose, children }) {
 
     const timer = setTimeout(() => {
       onClose();
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [isOpen, onClose]);

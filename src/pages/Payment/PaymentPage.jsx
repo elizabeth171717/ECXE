@@ -41,6 +41,8 @@ function Payment() {
         const response = await axios.post(
           `${BACKEND_URL}/api/exce/${client}/create-payment-intent`,
           {
+            items: orderData.items,
+            fulfillment: orderData.fulfillment,
             orderTotal: orderData.orderTotal,
             customerInfo: orderData.customerInfo,
           }
@@ -111,6 +113,13 @@ console.log("📧 Customer email:", orderData?.customerInfo?.email);
             Total: ${orderData.orderTotal.toFixed(2)}
           </strong>
         </div>
+
+{orderData.shirtDiscount > 0 && (
+  <div className="payment-discount">
+    <span>Automatic Shirt Discount</span>
+    <strong>-${orderData.shirtDiscount.toFixed(2)}</strong>
+  </div>
+)}
 
         <Elements
           stripe={stripePromise}

@@ -12,6 +12,9 @@ import CesiaStore from './themes/CesiaStore/Cesia';
 import EfrainStore from './themes/EfrainStore/Efrain';
 import ElizabethStore from './themes/ElizabethStore.jsx/Elizabeth';
 import ThankYou from './pages/ThankYouPage//ThankYou';
+import AdminLogin from './pages/Admin/AdminLogin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
+import AdminOrders from './pages/Admin/AdminOrders/AdminOrders';
 import './App.css'
 
 function App() {
@@ -32,7 +35,22 @@ function App() {
  <Route path="/checkout" element={<CheckoutPage />} />
  <Route path="/payment" element={<PaymentPage />} />
  <Route path="/thank-you" element={<ThankYou />} />
-    </Routes>
+
+ 
+{/* ADMIN */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
+
+        <Route
+          path="/admin/orders"
+          element={<AdminOrders />}
+        />
+
+   </Routes>
         </main>
     <Footer />
         <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />

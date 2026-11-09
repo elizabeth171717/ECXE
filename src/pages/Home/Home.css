@@ -1,3 +1,210 @@
 .page-container {
     padding:1rem;
 }
+
+/* STORE CARDS */
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.store-card {
+  min-width: 0;
+  min-height: 300px;
+  padding: 20px 16px;
+  border-radius: 25px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.9);
+  box-shadow: 0 9px 22px rgba(83, 37, 110, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.store-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 30px rgba(83, 37, 110, 0.2);
+}
+
+.store-card:active {
+  transform: scale(0.98);
+}
+
+.elizabeth-card {
+  background: linear-gradient(145deg, #ffe0f0, #ffadd8);
+  color: #a20c64;
+}
+
+.cesia-card {
+  background: linear-gradient(145deg, #dff7ff, #9cddf8);
+  color: #07547c;
+}
+
+.efrain-card {
+  background: linear-gradient(145deg, #fff1c9, #ffd36c);
+  color: #87400c;
+}
+
+/* CARD TEXT */
+
+.store-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.store-number {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 12px;
+}
+
+.store-card h2 {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  font-weight: 900;
+}
+
+.store-card p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+
+/* SHOP BUTTON */
+
+.shop-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.9);
+  padding: 10px 17px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.shop-now span {
+  font-size: 1.2rem;
+}
+
+/* PRODUCT ILLUSTRATIONS */
+
+.store-art {
+  min-height: 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.store-art span {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  filter: drop-shadow(2px 5px 3px rgba(0,0,0,0.12));
+  animation: float 3s ease-in-out infinite;
+}
+
+.store-art span:nth-child(even) {
+  animation-delay: 0.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(3deg);
+  }
+}
+
+/* FOOTER */
+
+.ecxe-footer {
+  text-align: center;
+  margin: 25px auto 5px;
+  color: #671c91;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+}
+
+.ecxe-footer span {
+  color: #ed168d;
+  font-size: 1.3rem;
+  margin: 0 8px;
+}
+
+/* MOBILE */
+
+/* MOBILE: STACK CARDS VERTICALLY */
+
+@media (max-width: 650px) {
+  
+  .store-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .store-card {
+    min-height: 145px;
+    padding: 14px;
+    border-radius: 20px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .store-card-content {
+    flex: 1;
+  }
+
+  .store-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .store-card p {
+    font-size: 0.75rem;
+  }
+
+  .store-art {
+    width: 105px;
+    min-height: 90px;
+    flex-wrap: wrap;
+  }
+
+  .store-art span {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .store-card {
+    min-height: 125px;
+  }
+
+  .store-art {
+    width: 85px;
+  }
+
+  .store-art span {
+    font-size: 1.7rem;
+  }
+
+  .store-card h2 {
+    font-size: 1.15rem;
+  }
+}
+

@@ -16,7 +16,7 @@ function ProductCard({ product, storeType }) {
   const [quantity, setQuantity] = useState(1);
 const [selectedColor, setSelectedColor] = useState("");
 const [selectedSize, setSelectedSize] = useState("");
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, shirtQuantity, shirtDiscount } = useContext(CartContext);
 const requiresOptions = storeType === "elizabeth";
  
 
@@ -34,6 +34,8 @@ const requiresOptions = storeType === "elizabeth";
     name: product.name,
     price: product.prices?.website ?? product.basePrice,
     image: product.image || "",
+      customProperties: product.customProperties || [],
+
     ...(requiresOptions && {
         color: selectedColor,
         size: selectedSize,
@@ -45,7 +47,7 @@ const requiresOptions = storeType === "elizabeth";
   console.log("Adding to cart:", cartItem);
   setIsModalOpen(true);
 };
-
+console.log(product.customProperties);
   return (
     <article className="product-card">
       <div className="product-card__image">
