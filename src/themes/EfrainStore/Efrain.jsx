@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Collection from "../../components/products/Collection/Collection";
 import { BACKEND_URL } from "../../constants/constants";
+
 import "./Efrain.css";
 const CLIENT_ID = "anahuac";
 const STORE_SLUG = "efrain-shop";
@@ -89,9 +90,13 @@ function EfrainStore() {
 
   return (
     <div className="Store-container">
+   
       <div className="page-title"> 
         <h2 className="Store-title">Efrain's World</h2>
-</div>
+    
+      </div>
+
+     
            <div className="collections-container">
         {visibleCollections.map((collection) => (
           <Collection

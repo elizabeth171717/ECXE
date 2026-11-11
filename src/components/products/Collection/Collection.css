@@ -4,8 +4,17 @@
   overflow: hidden;
   box-sizing: border-box;
   padding: 1rem 0;
-  border: 3px solid #816464;
-  background-color: #8d7070;
+ border: 2px solid #b9e5f5;
+ 
+   background: linear-gradient(
+    120deg,
+    #d9f3ff 0%,
+    #e5f8f5 40%,
+    #fff2c4 80%,
+    #ffe4ed 100%
+  );
+  box-shadow: 0 5px 18px rgba(116, 55, 140, 0.08);
+
 }
 
 .collection-name {
