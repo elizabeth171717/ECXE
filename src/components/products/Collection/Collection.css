@@ -1,56 +1,128 @@
 
+/* CLICKABLE SECTION HEADER */
+
+.collection {
+  margin: .25rem .15rem;
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
 .collection-toggle {
   width: 100%;
+  min-height: 85px;
+  padding: 18px 24px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 20px;
-  border: none;
-  background: transparent;
+  gap: 15px;
+
+  border: 2px solid #e6c9f5;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    110deg,
+    #dff7ff 0%,
+    #fff1c9 65%,
+    #ffe0f0 100%
+  );
+
   cursor: pointer;
   text-align: left;
-  color: inherit;
+
+  box-shadow: 0 5px 14px rgba(100, 22, 168, 0.12);
+
+  transition: all 0.25s ease;
 }
+
+/* SECTION NAME */
 
 .collection-toggle .collection-name {
   margin: 0;
+  color: #49166e;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+/* CLICK INDICATOR */
+
 .collection-arrow {
-  display: inline-block;
-  font-size: 14px;
-  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #ffffff;
+  color: #6416a8;
+
+  font-size: 16px;
+  box-shadow: 0 3px 8px rgba(100, 22, 168, 0.15);
+
+  transition: transform 0.3s ease;
 }
 
 .collection-arrow.open {
   transform: rotate(180deg);
 }
 
-.collection-content {
-  padding: 10px 0;
+/* HOVER */
+
+.collection-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(100, 22, 168, 0.2);
+  border-color: #ed168d;
 }
+
+/* OPEN SECTION CONTENT */
+
+.collection-content {
+  padding: 20px 5px;
+  animation: collectionReveal 0.3s ease;
+}
+
+@keyframes collectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* GROUP HEADINGS */
 
 .collection-group {
-  margin: 12px 0;
+  margin: 20px 0;
 }
 
-.collection-group-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  border: none;
-  background: #f5f5f5;
-  cursor: pointer;
-  text-align: left;
-  color: inherit;
+.collection-group h3 {
+  color: #6416a8;
+  font-weight: 800;
+  margin-bottom: 15px;
 }
 
-.collection-group-toggle h3 {
-  margin: 0;
-}
+@media (max-width: 600px) {
+  .collection-toggle {
+    min-height: 75px;
+    padding: 15px 18px;
+  }
 
-.collection-group-content {
-  padding: 15px 0;
+  .collection-toggle .collection-name {
+    font-size: 1.2rem;
+  }
+
+  .collection-arrow {
+    width: 36px;
+    height: 36px;
+  }
 }

@@ -7,9 +7,9 @@
 .store-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 2rem;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 .store-card {
@@ -69,7 +69,7 @@
 }
 
 .store-card h2 {
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: clamp(2rem, 2.5vw, 2rem);
   line-height: 1.05;
   margin: 0 0 10px;
   font-weight: 900;
@@ -156,7 +156,7 @@
   
   .store-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .store-card {
@@ -169,10 +169,6 @@
 
   .store-card-content {
     flex: 1;
-  }
-
-  .store-card h2 {
-    font-size: 1.3rem;
   }
 
   .store-card p {
@@ -203,8 +199,6 @@
     font-size: 1.7rem;
   }
 
-  .store-card h2 {
-    font-size: 1.15rem;
-  }
+  
 }
 

@@ -14,8 +14,9 @@ function Collection({ name, products = [], groups = [], storeType }) {
         onClick={() => setIsOpen((current) => !current)}
         aria-expanded={isOpen}
       >
+       
         <h2 className="collection-name">{name}</h2>
-
+        
         <span className={`collection-arrow ${isOpen ? "open" : ""}`}>
           ▼
         </span>

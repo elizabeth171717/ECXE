@@ -130,7 +130,7 @@ const [modalOpen, setModalOpen] = useState(false);
         <div className="custom-design__intro">
           <h3>Have Your Own Design?</h3>
           <p>
-            Upload your artwork and let us print it on your favorite T-shirt!
+            Upload your artwork and let us print it on your T-shirt!
           </p>
 
           <button
